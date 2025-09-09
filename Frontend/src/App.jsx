@@ -1,7 +1,14 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
-import { BrowserRouter, Routes, Route, Link, Router, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Link,
+  Router,
+  useNavigate,
+} from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
@@ -22,14 +29,14 @@ function Login() {
       <Row>
         <Col md={3}></Col>
         <Col md={6}>
-          <form >
+          <form>
             <label>
               Enter your Username:
-              <input name="username" type="text"  />
-            </label>            
+              <input name="username" type="text" />
+            </label>
             <label>
               Enter your Password:
-              <input name="password" type="Password"  />
+              <input name="password" type="Password" />
             </label>
             <button variant="primary" type="submit">
               Login
@@ -48,6 +55,7 @@ function Register() {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -56,13 +64,12 @@ function Register() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();
-    const navigate = useNavigate;
+    event.preventDefault();    
     axios
       .post("http://192.168.1.52:8081/registerdb", dataSet)
       .then(function (response) {
         console.log(response.dataSet);
-        navigate('/Login');
+        navigate("/Login");
       })
       .catch((err) => console.log(err));
   };
