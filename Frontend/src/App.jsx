@@ -44,11 +44,11 @@ function App() {
         </Container>
       </Navbar>
       <Routes>
-        <Route path="/Home" element={<Home />} />
+        <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
-        <Route path="/About" element={<Register />} />
-        <Route path="/Contact Us" element={<Register />} />
+        <Route path="/About" element={<About />} />
+        <Route path="/Contact Us" element={<ContactUs />} />
       </Routes>
     </BrowserRouter>
   );
