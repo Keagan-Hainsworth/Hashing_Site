@@ -1,54 +1,63 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Nav, Navbar, Row, Col } from "react-bootstrap";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Link,
-  Router
-} from "react-router-dom";
+import { BrowserRouter, Routes, Route, Link, Router } from "react-router-dom";
 import Login from "./Login.jsx";
 import Register from "./Register.jsx";
+import About from "./About.jsx";
+import ContactUs from "./ContactUs.jsx";
+import Profile from "./Profile.jsx";
 
 function Home() {
-  return <h1>Home Page</h1>;
+  return (
+    <div class="container">
+      <div class="row text-center">
+        <h1>Home Page</h1>
+      </div>
+    </div>
+  );
 }
 
 function App() {
+
   return (
     <BrowserRouter>
-      <Navbar expand="lg" className="bg-body-tertiary">
-        <Container>
-          <Navbar.Brand href="#home">React-Bootstrap</Navbar.Brand>
-          <Navbar.Toggle aria-controls="basic-navbar-nav" />
-          <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
-              <Nav.Link as={Link} to="/">
-                Home
-              </Nav.Link>
-              <Nav.Link as={Link} to="/Login">
-                Login
-              </Nav.Link>
-              <Nav.Link as={Link} to="/Register">
-                Register
-              </Nav.Link>
-              <Nav.Link as={Link} to="/Register">
-                About
-              </Nav.Link>
-              <Nav.Link as={Link} to="/Register">
-                Contact Us
-              </Nav.Link>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <nav class="navbar navbar-expand-sm bg-light justify-content-center">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <Link class="nav-link" to="/">
+              Home
+            </Link>
+          </li>
+          <li class="nav-item">
+            <Link class="nav-link" to="/Profile">
+              Profile
+            </Link>
+          </li>
+          <li class="nav-item">
+            <Link class="nav-link" to="/Register">
+              Register
+            </Link>
+          </li>
+          <li class="nav-item">
+            <Link class="nav-link" to="/About">
+              About
+            </Link>
+          </li>
+          <li class="nav-item">
+            <Link class="nav-link" to="/Contact Us">
+              Contact Us
+            </Link>
+          </li>
+        </ul>
+      </nav>
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Login" element={<Login />} />
         <Route path="/Register" element={<Register />} />
         <Route path="/About" element={<About />} />
         <Route path="/Contact Us" element={<ContactUs />} />
+        <Route path="/Profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );

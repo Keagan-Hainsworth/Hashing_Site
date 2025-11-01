@@ -1,6 +1,5 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col } from "react-bootstrap";
 import {
   BrowserRouter,
   Routes,
@@ -9,39 +8,100 @@ import {
   Router,
   useNavigate,
 } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 
 function Login() {
+  const [dataSet, setDataSet] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [remember, setRemember] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check for stored credentials on component mount
+    const storedUsername = localStorage.getItem("rememberedUsername");
+    const storedRemember = localStorage.getItem("remember") === "true";
+
+    if (storedUsername && storedRemember) {
+      setDataSet((prev) => ({ ...prev, username: storedUsername }));
+      setRemember(true);
+    }
+  }, []);
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setDataSet((values) => ({ ...values, [name]: value }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(dataSet);
+
+    axios
+      .post("http://localhost:8081/logindb", dataSet)
+      .then((response) => {
+        console.log(response.data);
+        navigate("/Profile");
+        if (remember) {
+          localStorage.setItem("rememberedUsername", dataSet.username);
+          localStorage.setItem("remember", "true");
+        } else {
+          localStorage.removeItem("rememberedUsername");
+          localStorage.removeItem("remember");
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
-    <Container>
-      <Row>
-        <Col md={2}></Col>
-        <Col md={8} className="text-center">
-          <h1>Regsitration Page</h1>
-        </Col>
-        <Col md={2}></Col>
-      </Row>
-      <Row>
-        <Col md={3}></Col>
-        <Col md={6}>
-          <form>
-            <label>
-              Enter your Username:
-              <input name="username" type="text" />
+    <div class="container">
+      <div class="row text-center">
+        <h1>Login Page</h1>
+      </div>
+      <div class="row">
+        <form class="col-4 offset-4" onSubmit={handleSubmit}>
+          <div class="mb-3">
+            <label class="form-label">Username:</label>
+            <input
+              class="form-control"
+              name="username"
+              type="text"
+              onChange={handleChange}
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password:</label>
+            <input
+              class="form-control"
+              name="password"
+              type="Password"
+              onChange={handleChange}
+            />
+          </div>
+          <div class="form-check mb-3">
+            <label class="form-check-label">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="remember"
+                onChange={(e) => setRemember(e.target.checked)}
+              />{" "}
+              Remember me
             </label>
-            <label>
-              Enter your Password:
-              <input name="password" type="Password" />
-            </label>
-            <button variant="primary" type="submit">
-              Login
-            </button>
-          </form>
-        </Col>
-        <Col md={3}></Col>
-      </Row>
-    </Container>
+          </div>
+          <button class="btn btn-primary" variant="primary" type="submit">
+            Login
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 

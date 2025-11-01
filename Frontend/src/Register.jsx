@@ -1,6 +1,5 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Container, Row, Col } from "react-bootstrap";
 import {
   BrowserRouter,
   Routes,
@@ -27,9 +26,9 @@ function Register() {
   };
 
   const handleSubmit = (event) => {
-    event.preventDefault();    
+    event.preventDefault();
     axios
-      .post("http://192.168.1.52:8081/registerdb", dataSet)
+      .post("http://localhost:8081/registerdb", dataSet)
       .then(function (response) {
         console.log(response.dataSet);
         navigate("/Login");
@@ -38,38 +37,51 @@ function Register() {
   };
 
   return (
-    <Container>
-      <Row>
-        <Col md={2}></Col>
-        <Col md={8} className="text-center">
-          <h1>Regsitration Page</h1>
-        </Col>
-        <Col md={2}></Col>
-      </Row>
-      <Row>
-        <Col md={3}></Col>
-        <Col md={6}>
-          <form onSubmit={handleSubmit}>
-            <label>
-              Enter your Username:
-              <input name="username" type="text" onChange={handleChange} />
-            </label>
-            <label>
-              Enter your Email:
-              <input name="email" type="email" onChange={handleChange} />
-            </label>
-            <label>
-              Enter your Password:
-              <input name="password" type="Password" onChange={handleChange} />
-            </label>
-            <button as={Link} to="/Login" variant="primary" type="submit">
-              Register
-            </button>
-          </form>
-        </Col>
-        <Col md={3}></Col>
-      </Row>
-    </Container>
+    <div class="container"> 
+      <div class="row text-center">
+        <h1>Registration Page</h1>
+      </div>
+      <div class="row">
+        <form class="col-4 offset-4" onSubmit={handleSubmit}>
+          <div class="mb-3">
+            <label class="form-label">Username:</label>
+            <input
+              class="form-control"
+              name="username"
+              type="text"
+              onChange={handleChange}
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Email:</label>
+            <input
+              class="form-control"
+              name="email"
+              type="email"
+              onChange={handleChange}
+            />
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password:</label>
+            <input
+              class="form-control"
+              name="password"
+              type="Password"
+              onChange={handleChange}
+            />
+          </div>
+          <button
+            class="btn btn-primary"
+            as={Link}
+            to="/Login"
+            variant="primary"
+            type="submit"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
   );
 }
 

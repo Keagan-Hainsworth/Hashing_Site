@@ -48,11 +48,16 @@ app.post('/logindb', async (req, res) => {
     const hashedPassword = results[0].password;
     const match = await bcrypt.compare(password, hashedPassword);
     if (match) {
-      return res.json({ success: true, message: "Login successful" });
+      return res.json({ success: true, message: "Login attempt successful" });
     } else {
       return res.json({ success: false, message: "Invalid password" });
     }
   });
+});
+
+app.post('/profile', async (req, res) => {
+  // Profile handling logic here
+  const sql = "SELECT username FROM users WHERE username = ?"
 });
 
 app.listen(8081, '0.0.0.0', () => {
