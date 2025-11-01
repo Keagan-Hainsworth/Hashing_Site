@@ -2,12 +2,14 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 function Profile() {
+  const displayName = localStorage.getItem("rememberedUsername");
 
-    
   return (
     <div class="container">
       <div class="row text-center">
-        <h1>Welcome <span >{/* User's name or info */}</span></h1>
+        <h1>
+          Welcome <span>{displayName}</span>
+        </h1>
       </div>
     </div>
   );

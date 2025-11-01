@@ -25,7 +25,7 @@ function Login() {
     // Check for stored credentials on component mount
     const storedUsername = localStorage.getItem("rememberedUsername");
     const storedRemember = localStorage.getItem("remember") === "true";
-
+    
     if (storedUsername && storedRemember) {
       setDataSet((prev) => ({ ...prev, username: storedUsername }));
       setRemember(true);
@@ -46,13 +46,19 @@ function Login() {
       .post("http://localhost:8081/logindb", dataSet)
       .then((response) => {
         console.log(response.data);
-        navigate("/Profile");
-        if (remember) {
-          localStorage.setItem("rememberedUsername", dataSet.username);
-          localStorage.setItem("remember", "true");
+        if (!response.data.success) {
+          console.log("Login failed:", response.data.message);
+          return;
         } else {
-          localStorage.removeItem("rememberedUsername");
-          localStorage.removeItem("remember");
+          if (remember == true) {
+            localStorage.setItem("rememberedUsername", dataSet.username);
+            localStorage.setItem("remember", "true");
+            localStorage.setItem("authToken", "true");
+          } else {
+            localStorage.removeItem("rememberedUsername");
+            localStorage.removeItem("remember");
+          }
+          navigate("/Profile");
         }
       })
       .catch((err) => {
