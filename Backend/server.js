@@ -2,6 +2,7 @@ const express = require("express");
 const mysql = require("mysql");
 const cors = require('cors');
 const bcrypt = require('bcrypt');
+const PORT = process.env.PORT || 8081;
 
 const app = express();
 app.use(cors({
@@ -63,6 +64,6 @@ app.post('/profile', async (req, res) => {
   const sql = "SELECT username FROM users WHERE username = ?"
 });
 
-app.listen(8081, '0.0.0.0', () => {
-  console.log("Listening");
+server.listen(PORT, () => {
+  console.log("Server running on port ${PORT}");
 });
