@@ -8,7 +8,7 @@ import {
   Router,
   useNavigate,
 } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState} from "react";
 import axios from "axios";
 
 function Login() {
@@ -17,20 +17,20 @@ function Login() {
     password: "",
   });
 
-  const [remember, setRemember] = useState(false);
+  //const [remember, setRemember] = useState(false);
 
   const navigate = useNavigate();
 
-  useEffect(() => {
-    // Check for stored credentials on component mount
-    const storedUsername = localStorage.getItem("rememberedUsername");
-    const storedRemember = localStorage.getItem("remember") === "true";
+  // useEffect(() => {
+  //   // Check for stored credentials on component mount
+  //   const storedUsername = localStorage.getItem("rememberedUsername");
+  //   const storedRemember = localStorage.getItem("remember") === "true";
     
-    if (storedUsername && storedRemember) {
-      setDataSet((prev) => ({ ...prev, username: storedUsername }));
-      setRemember(true);
-    }
-  }, []);
+  //   if (storedUsername && storedRemember) {
+  //     setDataSet((prev) => ({ ...prev, username: storedUsername }));
+  //     setRemember(true);
+  //   }
+  // }, []);}
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -50,14 +50,13 @@ function Login() {
           console.log("Login failed:", response.data.message);
           return;
         } else {
-          if (remember == true) {
-            localStorage.setItem("rememberedUsername", dataSet.username);
-            localStorage.setItem("remember", "true");
-            localStorage.setItem("authToken", "true");
-          } else {
-            localStorage.removeItem("rememberedUsername");
-            localStorage.removeItem("remember");
-          }
+          // if (remember == true) {
+          //   localStorage.setItem("rememberedUsername", dataSet.username);
+          //   localStorage.setItem("remember", "true");
+          // } else {
+          //   localStorage.removeItem("rememberedUsername");
+          //   localStorage.removeItem("remember");
+          // }
           navigate("/Profile");
         }
       })
@@ -97,7 +96,7 @@ function Login() {
                 class="form-check-input"
                 type="checkbox"
                 name="remember"
-                onChange={(e) => setRemember(e.target.checked)}
+                //onChange={(e) => setRemember(e.target.checked)}
               />{" "}
               Remember me
             </label>

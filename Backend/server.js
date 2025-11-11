@@ -47,7 +47,10 @@ app.post('/logindb', async (req, res) => {
 
     const hashedPassword = results[0].password;
     const match = await bcrypt.compare(password, hashedPassword);
+    
     if (match) {
+      // Set a cookie or token to indicate the user is logged in
+      
       return res.json({ success: true, message: "Login attempt successful" });
     } else {
       return res.json({ success: false, message: "Invalid password" });

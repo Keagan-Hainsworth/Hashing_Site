@@ -6,7 +6,6 @@ import Register from "./Register.jsx";
 import About from "./About.jsx";
 import ContactUs from "./ContactUs.jsx";
 import Profile from "./Profile.jsx";
-import PrivateRoute from "./Auth/PrivateRoute.jsx";
 
 function Home() {
   return (
@@ -57,9 +56,7 @@ function App() {
         <Route path="/Register" element={<Register />} />
         <Route path="/About" element={<About />} />
         <Route path="/Contact Us" element={<ContactUs />} />
-        <Route element={<PrivateRoute />}>
-          <Route path="/Profile" element={<Profile />} />
-        </Route>
+        <Route path="/Profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   );
